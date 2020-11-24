@@ -1,80 +1,133 @@
 <template>
-  <el-container>
-    <el-menu :default-openeds="['dashboard', 'user']">
-      <el-submenu index="dashboard">
-        <template slot="title"><i class="el-icon-s-data"></i>工作台</template>
-        <el-menu-item index="dashboard">
-          <router-link to="/dashboard" tag="div">工作台</router-link>
-        </el-menu-item>
-      </el-submenu>
-      <el-submenu index="user">
-        <template slot="title"><i class="el-icon-user"></i>用户</template>
-        <el-menu-item index="user">
-          <router-link to="/user" tag="div">用户管理</router-link>
-        </el-menu-item>
-      </el-submenu>
-    </el-menu>
-
+  <div id="layout">
     <el-container>
-      <el-header>
-        <!-- 引入图片的两种方式 -->
-        <img :src="logo" />
-        <img src="../../assets/images/logo.png" />
-        <span>admin</span>
-        <el-dropdown>
-          <i class="el-icon-s-operation"></i>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>登出</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
+      <el-header v-if="!mainApp">
+        <div class="header">
+          <div class="header-lf">
+            <div class="title">
+              <img src="../../assets/images/logo.png" />
+              薯片运营后台
+            </div>
+            <!-- <MenuNav /> -->
+          </div>
+          <div class="header-rt">
+            <User />
+          </div>
+        </div>
       </el-header>
-
-      <el-main>
-        <router-view />
-      </el-main>
+      <el-container>
+        <el-aside class="sp-aside" v-if="!mainApp">
+          <SliderNav />
+        </el-aside>
+        <el-main :class="{ 'el-main': !mainApp, 'el-mains': mainApp }">
+          <!-- 第一列栅格布局 -->
+          <!-- 第二列布局 -->
+          <el-row>
+            <el-col :span="24" class="col3" :style="{ marginTop: mainApp ? 0 : '40px' }">
+              <div class="router-view">
+                <router-view />
+              </div>
+            </el-col>
+          </el-row>
+        </el-main>
+      </el-container>
     </el-container>
-  </el-container>
+  </div>
 </template>
 
 <script>
-import logo from 'assets/images/logo.png';
-
+import SliderNav from 'components/layout/SliderNav';
+import User from 'components/layout/User';
 export default {
-  data() {
-    return {
-      logo,
-    };
+  name: 'Default',
+  components: {
+    SliderNav,
+    User,
+  },
+  computed: {
+    mainApp() {
+      const __mainApp__ = window.__INDEPENDENT__;
+      if (__mainApp__) {
+        return false;
+      }
+      return true;
+    },
+  },
+  mounted() {
+    this.fetchData();
+  },
+  methods: {
+    async fetchData() {
+      const params = { authId: '7715741018907525120' };
+      this.list = await getList(params);
+    },
   },
 };
 </script>
-
-<style lang="less">
-html,
-body,
-#app,
-.el-container,
-.el-aside,
-.el-menu {
-  height: 100%;
+<style lang="scss" scoped>
+#layout {
+  height: 100vh;
+  padding: 0;
+  .el-header {
+    background-color: #545c64;
+    padding: 0 15px;
+  }
+  .sp-aside {
+    width: 200px;
+  }
+  .el-main {
+    padding: 16px;
+    padding-top: 0;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    height: 60px;
+    background-color: #545c64;
+    &-lf {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-direction: row;
+      .title {
+        height: 60px;
+        width: 200px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        font-size: 20px;
+        font-weight: bold;
+        color: #fff;
+        img {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
 }
-
-.el-header {
-  border-bottom: 1px solid #e6e6e6;
-  line-height: 60px;
-  text-align: right;
-
-  &:hover {
-    cursor: pointer;
-  }
-
-  svg {
-    width: 24px;
-    height: 24px;
-  }
-
-  img,
-  svg {
-    vertical-align: middle;
-  }
+.main-con {
+  background-color: #fff;
+}
+.el-main {
+  background-color: #f5f5f5;
+}
+.col1 {
+  background-color: #f5f5f5;
+  height: 40px;
+  position: absolute;
+  width: calc(100vw - 220px);
+  right: 0;
+  top: 0;
+  z-index: 999;
+}
+.col3 {
+  /* background-color: #fff; */
+  margin-top: 40px;
+}
+.router-view {
+  height: calc(100vh - 116px);
+  overflow: auto;
 }
 </style>

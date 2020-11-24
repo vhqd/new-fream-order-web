@@ -7,6 +7,8 @@ import singleSpaVue from 'single-spa-vue';
 import router from 'router';
 import { setEvtBus } from 'utils/event-bus';
 
+import 'assets/styles/clear.css';
+
 Vue.use(VueRouter);
 Vue.use(ElementUI);
 
