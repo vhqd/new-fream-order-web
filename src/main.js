@@ -1,15 +1,19 @@
 import store from 'store';
 import App from './app.vue';
 import Vue from 'vue';
-import VueRouter from 'vue-router';
+import router from 'router';
 import ElementUI from 'utils/element-ui';
 import singleSpaVue from 'single-spa-vue';
-import router from 'router';
 import { setEvtBus } from 'utils/event-bus';
 
+import elSelectScroll from 'utils/elSelectScroll';
+import { resultHandle } from 'utils/mixins';
 import 'assets/styles/clear.css';
+//下拉分页加载指令
+Vue.directive('el-select-scroll', elSelectScroll);
+Vue.mixin(resultHandle);
+Vue.prototype.$store = store;
 
-Vue.use(VueRouter);
 Vue.use(ElementUI);
 
 const appOptions = {

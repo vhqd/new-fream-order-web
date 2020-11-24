@@ -37,7 +37,11 @@
     "mitt": "^2.1.0",
     "single-spa": "^5.6.1",
     "single-spa-vue": "^2.0.0",
-    "vuex": "^3.5.1"
+    "vuex": "^3.5.1",
+    "markdown-it": "^12.0.2",
+    "markdown-it-container": "^3.0.0",
+    "vue-markdown-loader": "^2.4.1",
+    "highlight.js": "^10.3.2"
   },
   "devDependencies": {
     "@fe/sp-scripts": "latest",

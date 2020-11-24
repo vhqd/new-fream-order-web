@@ -8,11 +8,9 @@ import Vue from 'vue';
 import axios from 'axios';
 import { sign } from '@fe/common';
 import CONFIG from 'constants/config';
-
 // 支持的方法
 const methods = ['get', 'head', 'post', 'put', 'delete', 'options', 'patch', 'form'];
 const paramsMethods = ['get', 'delete'];
-
 // 添加请求前缀
 const API_PREFIX = '/subapp';
 
@@ -69,7 +67,8 @@ class Api {
     const _path = path.indexOf('http') === 0 ? path : `${API_PREFIX}${path}`;
     axios[isForm ? 'post' : method](_path, isForm ? formData : data, config)
       .then(({ data }) => {
-        if (data.code === 200) {
+        resolve(data);
+        /*  if (data.code === 200) {
           resolve(data.data);
         } else {
           // 逻辑错误，按实际业务需求处理，默认弹窗提示
@@ -78,7 +77,7 @@ class Api {
             type: 'error',
           });
           reject(data);
-        }
+        } */
       })
       .catch(async (error) => {
         if (error.response) {

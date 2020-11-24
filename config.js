@@ -18,7 +18,7 @@ const envs = [
     },
     // apiProxies是项目中调用后端API的地址，请根据项目需要修改其中的参数
     apiProxies: {
-      '/subapp/*': 'https://tmicrouag.dgg188.cn',
+      '/subapp/*': 'http://yapi.dgg.cn/mock/56',
     },
     hosts: {},
     // 需要额外注入的全局变量，代码中可直接通过 window.__EXTERNAL_ENVIRONMENT__.xx 使用
@@ -26,7 +26,7 @@ const envs = [
   },
 ];
 
-const config =  {
+const config = {
   // 本地开发时，根据这个值匹配envs的配置
   branch: 'dev',
 
@@ -44,9 +44,9 @@ const config =  {
 
   //用于设置不同库之间的代码共享，exposes用来暴露需要共享给其它库使用的代码
   exposes: {},
-}
+};
 
 module.exports = {
-  config, 
+  config,
   envs,
 };

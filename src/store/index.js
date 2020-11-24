@@ -8,9 +8,11 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import user from './user';
+import order from './order';
 
 const modules = {
   user,
+  order,
 };
 
 Vue.use(Vuex);

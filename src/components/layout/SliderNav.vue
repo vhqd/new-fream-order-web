@@ -13,6 +13,7 @@ export default {
 
   data() {
     return {
+      activeMenu: '/home',
       menu: [
         {
           path: '/home',
@@ -38,30 +39,12 @@ export default {
           ],
           root: true,
         },
-        {
-          path: '/components',
-          name: '公共组件',
-          icon: 'el-icon-notebook-1',
-          children: [
-            {
-              path: '/components/tooltip',
-              name: '溢出提示',
-            },
-            {
-              path: '/components/selectLoadMore',
-              name: '下拉分页',
-            },
-            {
-              path: '/components/silderNav',
-              name: '左侧菜单',
-            },
-          ],
-          root: true,
-        },
       ],
     };
   },
-
+  mounted() {
+    this.activeMenu = this.$route.meta.active;
+  },
   computed: {},
 
   methods: {},

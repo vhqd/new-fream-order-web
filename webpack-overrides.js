@@ -6,6 +6,7 @@ module.exports = {
    * @return {*} 必须返回修改后的config
    */
   webpackOverride: function (config, env) {
+    console.log(config);
     return config;
-  }
+  },
 };

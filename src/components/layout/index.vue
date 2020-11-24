@@ -1,14 +1,13 @@
 <template>
   <div id="layout">
     <el-container>
-      <el-header v-if="!mainApp">
+      <el-header v-if="__isIndependent__">
         <div class="header">
           <div class="header-lf">
             <div class="title">
               <img src="../../assets/images/logo.png" />
               薯片运营后台
             </div>
-            <!-- <MenuNav /> -->
           </div>
           <div class="header-rt">
             <User />
@@ -16,14 +15,12 @@
         </div>
       </el-header>
       <el-container>
-        <el-aside class="sp-aside" v-if="!mainApp">
+        <el-aside class="sp-aside" width="200px" v-if="__isIndependent__">
           <SliderNav />
         </el-aside>
-        <el-main :class="{ 'el-main': !mainApp, 'el-mains': mainApp }">
-          <!-- 第一列栅格布局 -->
-          <!-- 第二列布局 -->
+        <el-main :class="{ 'el-main': __isIndependent__, 'el-mains': !__isIndependent__ }">
           <el-row>
-            <el-col :span="24" class="col3" :style="{ marginTop: mainApp ? 0 : '40px' }">
+            <el-col :span="24" class="col3" :style="{ marginTop: !__isIndependent__ ? 0 : '40px' }">
               <div class="router-view">
                 <router-view />
               </div>
@@ -45,16 +42,16 @@ export default {
     User,
   },
   computed: {
-    mainApp() {
-      const __mainApp__ = window.__INDEPENDENT__;
-      if (__mainApp__) {
-        return false;
+    __isIndependent__() {
+      const __isIndependent__ = window.__INDEPENDENT__;
+      if (__isIndependent__) {
+        return true;
       }
-      return true;
+      return false;
     },
   },
   mounted() {
-    this.fetchData();
+    //this.fetchData();
   },
   methods: {
     async fetchData() {
@@ -71,9 +68,6 @@ export default {
   .el-header {
     background-color: #545c64;
     padding: 0 15px;
-  }
-  .sp-aside {
-    width: 200px;
   }
   .el-main {
     padding: 16px;
